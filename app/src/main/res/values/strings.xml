@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PokemonTracker</string>
+    <string name="header">Pokemon Tracker</string>
+    <string name="subheader">Register new catch!</string>
+
 </resources>
