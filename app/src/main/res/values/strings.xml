@@ -20,6 +20,9 @@
     <string name="defaultHeight">2.2m</string>
     <string name="defaultWeight">800.0kg</string>
     <string name="defaultLevel">N/A</string>
+    <string name="defaultHP">0</string>
+    <string name="defaultAttack">0</string>
+    <string name="defaultDefense">0</string>
 
 
     <string name="stats">Base Stats</string>
