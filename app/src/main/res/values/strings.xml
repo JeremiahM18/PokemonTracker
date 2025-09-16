@@ -15,6 +15,8 @@
     <string name="defaultName">Glastrier</string>
     <string name="defaultSpecies">Wild Horse Pokemon</string>
     <string name="defaultGender">N/A</string>
+    <string name="genderMale">Male</string>
+    <string name="genderFemale">Female</string>
     <string name="defaultHeight">2.2m</string>
     <string name="defaultWeight">800.0kg</string>
     <string name="defaultLevel">N/A</string>

@@ -79,11 +79,69 @@
                 android:ems="10"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/rowSpecies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:layout_marginTop="12dp">
+            <TextView
+                android:id="@+id/species"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/species"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/speciesInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:inputType="textCapWords"
+                android:text="@string/defaultSpecies"
+                android:ems="12"/>
+        </LinearLayout>
 
-
-
+        <LinearLayout
+            android:id="@+id/rowGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+            <RadioGroup
+                android:id="@+id/genderGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/genderMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genderMale"/>
+                <RadioButton
+                    android:id="@+id/genderFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genderFemale"
+                    android:layout_marginStart="8dp"/>
+                <RadioButton
+                    android:id="@+id/genderUNK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/defaultGender"
+                    android:layout_marginStart="8dp"/>
+            </RadioGroup>
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </ScrollView>
