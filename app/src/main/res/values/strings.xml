@@ -11,6 +11,15 @@
     <string name="weight">Weight</string>
     <string name="level">Level</string>
 
+    <string name="defaultNumber">896</string>
+    <string name="defaultName">Glastrier</string>
+    <string name="defaultSpecies">Wild Horse Pokemon</string>
+    <string name="defaultGender">N/A</string>
+    <string name="defaultHeight">2.2m</string>
+    <string name="defaultWeight">800.0kg</string>
+    <string name="defaultLevel">N/A</string>
+
+
     <string name="stats">Base Stats</string>
     <string name="hp">HP</string>
     <string name="attack">Attack</string>

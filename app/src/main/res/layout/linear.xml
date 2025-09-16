@@ -50,10 +50,36 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:inputType="number"
-                android:text="896"
+                android:text="@string/defaultNumber"
                 android:paddingVertical="8dp"
                 android:ems="6"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:layout_marginTop="12dp">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/nameInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:inputType="textCapWords"
+                android:text="@string/defaultName"
+                android:ems="10"/>
+        </LinearLayout>
+
+
 
 
 
