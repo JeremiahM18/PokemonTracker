@@ -5,4 +5,78 @@
     android:layout_height="match_parent"
     android:background="@color/ivory">
 
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideInputs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="150dp"/>
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:padding="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/subheader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subheader"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/nationalNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nationalNumber"
+                android:textSize="18sp"
+                android:layout_marginTop="24dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/subheader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+
+            <EditText
+                android:id="@+id/nationalInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="18sp"
+                android:paddingVertical="12dp"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/nationalNumber"
+                android:layout_marginEnd="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
