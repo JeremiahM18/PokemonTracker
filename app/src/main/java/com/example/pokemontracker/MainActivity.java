@@ -9,14 +9,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,10 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int defMin = 10, defMax = 614;
     private static final double heightMin = 0.2, heightMax = 169.99;
     private static final double weightMin = 0.1, weightMax = 992.70;
-
-    // Allowed characters
-    private static final Pattern namPattern = Pattern.compile("^[A-Za-z. ]+$");
-    private static final Pattern specPattern = Pattern.compile("^[A-Za-z. ]+$");
 
     // Inputs
     private EditText national, name, species, height,
@@ -55,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.table);
 
         bindViews();
+        attachUnits();
 
     }
 
@@ -91,7 +83,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         };
-        name.setFilters(new InputFilter[]{filter});
+        name.setFilters(new InputFilter[]{
+                filter,
+                new InputFilter.LengthFilter(nameMax)
+        });
+
         InputFilter lfilter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
                 char c = source.charAt(i);
@@ -131,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String capitalizeWords(String str) {
-        if (str.isEmpty()) return str;
+        if (str == null || str.isEmpty()) return str;
         String[] parts = str.toLowerCase(Locale.US).trim().split("\\s+");
         StringBuilder sb = new StringBuilder();
         for (String part : parts) {
@@ -141,4 +137,75 @@ public class MainActivity extends AppCompatActivity {
         return sb.toString().trim();
     }
 
+    private void attachUnits() {
+        attachUnitWatch(height, "m");
+        attachUnitWatch(weight, "kg");
+    }
+
+    /*
+     * Keeps the EditText value numeric with at most one '.' and
+     * two decimals
+     */
+    private void attachUnitWatch(EditText edit, String unit) {
+        edit.addTextChangedListener(new TextWatcher() {
+            boolean editing;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+                if (editing) return;
+                editing = true;
+
+                String raw = s.toString();
+
+                // Remove existing unit
+                String noUnit = raw.endsWith(unit) ? raw.substring(0, raw.length() - unit.length()) : raw;
+
+                // Keep only digits and decimal point
+                StringBuilder clean = new StringBuilder();
+                boolean dot = false;
+                for (char c : noUnit.toCharArray()) {
+                    if (Character.isDigit(c)) {
+                        clean.append(c);
+                    } else if (c == '.' && !dot) {
+                        clean.append(c);
+                        dot = true;
+                    }
+                }
+
+                String digits = clean.toString();
+
+                // Max 2 decimals
+                int dotIndex = digits.indexOf('.');
+                if (dotIndex >= 0 && dotIndex < digits.length() - 1) {
+                    String before = digits.substring(0, dotIndex);
+                    String after = digits.substring(dotIndex + 1);
+                    if (after.length() > 2) after = after.substring(0, 2);
+                    digits = before + '.' + after;
+                }
+
+                String result = digits.isEmpty() ? "" : digits + unit;
+
+                // Replace text only if it changed
+                if(!result.equals(raw)){
+                    s.replace(0, s.length(), result);
+                    // Place caret before the unit
+                    int caret = Math.max(0, result.length() - unit.length());
+                    try{
+                        edit.setSelection(caret);
+                    }catch(Exception ignored){
+                    }
+                }
+
+                editing = false;
+            }
+        });
+    }
 }
