@@ -5,5 +5,59 @@
     android:background="@color/ivory"
     android:fillViewport="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/header"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/red"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subheader"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/rowNational"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:id="@+id/nationalNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nationalNumber"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/nationalInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:inputType="number"
+                android:text="896"
+                android:paddingVertical="8dp"
+                android:ems="6"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
 
 </ScrollView>
