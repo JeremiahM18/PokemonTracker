@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         bindViews();
         attachUnits();
+        setFiltersAndCaps();
 
     }
 
@@ -74,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
         labelHP = findViewById(R.id.hp);
         labelAtk = findViewById(R.id.attack);
         labelDef = findViewById(R.id.defense);
+    }
 
+    private void setFiltersAndCaps(){
         // Filters for names and species
         InputFilter filter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
