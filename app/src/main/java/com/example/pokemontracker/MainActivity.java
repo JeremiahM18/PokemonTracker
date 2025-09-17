@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int dNat = 896;
     private static final String dName = "Glastrier";
     private static final String dSpecies = "Wild Horse Pokemon";
-    private static final String dHeight = "2.2 m";
-    private static final String dWeight = "800.00 kg";
     private static final int hp = 0, atk = 0, def = 0;
 
     private static final int natMin = 0, natMax = 1010;
@@ -45,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView labelNational, labelName, labelSpecies, labelGender,
             labelHeight, labelWeight, labelLevel, labelHP, labelAtk, labelDef;
 
+    // Random Extra Features
+    private int saveCount = 0;
+    private TextView saveC;
+    boolean darkMode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         attachUnits();
         setFiltersAndCaps();
         setDefaults();
+        toggle();
 
         // Buttons
         Button reset = findViewById(R.id.reset);
@@ -67,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
             clearLabelColors();
             String error = validateAll();
             if (error.isEmpty()) {
-                Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+                saveCount++;
+                saveC.setText(String.valueOf(saveCount));
+                Toast.makeText(this, "Information stored in the database (simulated)", Toast.LENGTH_SHORT).show();
+                setDefaults();
             } else {
                 Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             }
@@ -104,19 +112,18 @@ public class MainActivity extends AppCompatActivity {
         male = findViewById(R.id.genderMale);
         female = findViewById(R.id.genderFemale);
         unk = findViewById(R.id.genderUNK);
+        saveC = findViewById(R.id.saveCount);
     }
 
     private void setDefaults() {
         national.setText(String.valueOf(dNat));
         name.setText(dName);
         species.setText(dSpecies);
-        height.setText(dHeight);
-        weight.setText(dWeight);
         iHp.setText(String.valueOf(hp));
         iAtk.setText(String.valueOf(atk));
         iDef.setText(String.valueOf(def));
+
         // Defaults for selectors
-        unk.setChecked(true);
         spLevel.setSelection(0);
         clearLabelColors();
     }
@@ -209,10 +216,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Gender
         int gId = genderGroup.getCheckedRadioButtonId();
-        String g = ((RadioButton) findViewById(gId)).getText().toString();
-        if (!g.equals("Male") || g.equals("Female") || g.equals("Unknown")) {
-            sb.append("Gender must be Male, Female, or Unknown.\n");
+        if (gId == -1) {
             markError(labelGender);
+        } else {
+            String g = ((RadioButton) findViewById(gId)).getText().toString();
+            if(!(g.equals("Male") || g.equals("Female") || g.equals("Unknown"))){
+                markError(labelGender);
+            }
         }
 
         // Height/Weight
@@ -368,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 String raw = s.toString();
 
                 // Remove existing unit
-                String noUnit = raw.endsWith(unit) ? raw.substring(0, raw.length() - unit.length()) : raw;
+                String noUnit = raw.replace(" " + unit, "").replace(unit, "");
 
                 // Keep only digits and decimal point
                 StringBuilder clean = new StringBuilder();
@@ -393,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                     digits = before + '.' + after;
                 }
 
-                String result = digits.isEmpty() ? "" : digits + unit;
+                String result = digits.isEmpty() ? "" : digits + " " + unit;
 
                 // Replace text only if it changed
                 if (!result.equals(raw)) {
@@ -410,4 +420,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void toggle() {
+        TextView header = findViewById(R.id.header);
+        header.setTag(R.id.header, 0);
+        header.setOnClickListener(v -> cycleLayout());
+        Button toggle = findViewById(R.id.toggle);
+        if(toggle != null) toggle.setOnClickListener(v -> cycleLayout());
+    }
+
+    private void cycleLayout() {
+            TextView header = findViewById(R.id.header);
+            Object tag = header.getTag(R.id.header);
+            int next = (tag instanceof Integer) ? (Integer) tag : 0;
+
+            if(next == 0) {
+                setContentView(R.layout.constraint);
+                next = 1;
+            } else if (next == 1) {
+                setContentView(R.layout.table);
+                next = 2;
+            } else {
+                setContentView(R.layout.linear);
+                next = 0;
+            }
+
+        bindViews();
+        attachUnits();
+        setFiltersAndCaps();
+        setDefaults();
+        toggle();
+        switchTheme();
+
+        TextView newHeader = findViewById(R.id.header);
+        newHeader.setTag(R.id.header, next);
+        }
+
+        private void switchTheme(){
+            darkMode = !darkMode;
+            ScrollView root = findViewById(R.id.scrollView);
+            int bg = darkMode ? Color.parseColor("#212121") : getColor(R.color.ivory);
+            root.setBackgroundColor(bg);
+        }
 }

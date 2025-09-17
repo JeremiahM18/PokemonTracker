@@ -32,6 +32,8 @@
 
     <string name="reset">Reset</string>
     <string name="save">Save</string>
+    <string name="toggle">Toggle</string>
+    <string name="saveCount">Saved entries: 0</string>
 
 
 </resources>

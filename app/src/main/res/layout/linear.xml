@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ivory"
@@ -19,7 +20,7 @@
             android:textStyle="bold"
             android:textSize="24sp"
             android:textColor="@color/red"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/subheader"
@@ -28,7 +29,8 @@
             android:text="@string/subheader"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/darkGrey"/>
 
         <LinearLayout
             android:id="@+id/rowNational"
@@ -43,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nationalNumber"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/nationalInput"
                 android:layout_width="0dp"
@@ -68,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/nameInput"
                 android:layout_width="0dp"
@@ -92,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/species"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/speciesInput"
                 android:layout_width="0dp"
@@ -115,13 +120,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <RadioGroup
                 android:id="@+id/genderGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:checkedButton="@id/genderUNK">
                 <RadioButton
                     android:id="@+id/genderMale"
                     android:layout_width="wrap_content"
@@ -155,7 +162,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/height"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/heightInput"
                 android:layout_width="0dp"
@@ -179,7 +187,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/weight"
                 android:textSize="16sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/weightInput"
                 android:layout_width="0dp"
@@ -203,13 +212,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/level"
                 android:layout_weight="1"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/blue"/>
             <Spinner
                 android:id="@+id/levelSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:entries="@array/levels"/>
+                android:entries="@array/levels"
+                android:spinnerMode="dropdown"
+                android:dropDownHeight="249dp"/>
         </LinearLayout>
 
         <TextView
@@ -219,7 +231,8 @@
             android:text="@string/stats"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:textColor="@color/darkRed"/>
 
         <LinearLayout
             android:id="@+id/rowHP"
@@ -233,7 +246,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/hp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/hpInput"
                 android:layout_width="0dp"
@@ -256,7 +270,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/attack"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/attackInput"
                 android:layout_width="0dp"
@@ -279,7 +294,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/defense"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/blue"/>
             <EditText
                 android:id="@+id/defenseInput"
                 android:layout_width="0dp"
@@ -312,7 +328,25 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/red"
                 android:layout_marginStart="16dp"/>
+            <Button
+                android:id="@+id/toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toggle"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darkRed"
+                android:layout_marginStart="16dp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/saveCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saveCount"
+            android:textColor="@color/darkGrey"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
 

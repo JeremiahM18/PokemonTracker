@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ivory">
@@ -47,9 +48,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/subheader"
                 android:textSize="14sp"
+                android:textColor="@color/darkGrey"
                 app:layout_constraintTop_toBottomOf="@+id/header"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/saveCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/saveCount"
+                android:textSize="14sp"
+                android:textColor="@color/darkGrey"
+                app:layout_constraintTop_toBottomOf="@+id/subheader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp"/>
 
             <TextView
                 android:id="@+id/nationalNumber"
@@ -57,9 +71,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nationalNumber"
                 android:textSize="18sp"
+                android:textColor="@color/blue"
                 android:layout_marginTop="24dp"
                 android:textAlignment="viewEnd"
-                app:layout_constraintTop_toBottomOf="@+id/subheader"
+                app:layout_constraintTop_toBottomOf="@+id/saveCount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
 
@@ -74,6 +89,288 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBaseline_toBaselineOf="@+id/nationalNumber"
                 android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/nationalNumber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/nameInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:ems="10"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/name"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/species"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/species"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/speciesInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:ems="12"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/species"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/species"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+
+            <RadioGroup
+                android:id="@+id/genderGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:checkedButton="@id/genderUNK"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp">
+
+                <RadioButton
+                    android:id="@+id/genderMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genderMale"/>
+
+                <RadioButton
+                    android:id="@+id/genderUNK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/defaultGender"
+                    android:layout_marginStart="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/genderFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genderFemale"
+                    android:layout_marginStart="8dp"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/height"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/gender"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/heightInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="4"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/height"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/weightInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="8"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/weight"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/level"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="12dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/weight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+
+            <Spinner
+                android:id="@+id/levelSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/levels"
+                android:spinnerMode="dropdown"
+                android:dropDownHeight="249dp"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/level"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stats"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/darkRed"
+                app:layout_constraintTop_toBottomOf="@+id/level"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/hp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/hp"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="8dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/stats"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/hpInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="6"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/hp"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/attack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/attack"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="8dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/hp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/attackInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="6"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/attack"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:id="@+id/defense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/defense"
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:layout_marginTop="8dp"
+                android:textAlignment="viewEnd"
+                app:layout_constraintTop_toBottomOf="@+id/attack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideInputs"/>
+            <EditText
+                android:id="@+id/defenseInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="6"
+                app:layout_constraintStart_toEndOf="@+id/guideInputs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/defense"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/rowButtons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/defense"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <Button
+                    android:id="@+id/reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reset"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/blue"/>
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red"
+                    android:layout_marginStart="16dp"/>
+                <Button
+                    android:id="@+id/toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/toggle"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/darkRed"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
