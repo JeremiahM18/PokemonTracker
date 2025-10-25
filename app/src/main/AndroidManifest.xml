@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PokemonTracker">
+
+        <provider
+            android:authorities="com.example.pokemontracker.provider"
+            android:name=".data.PokemonProvider"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
