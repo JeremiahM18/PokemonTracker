@@ -1,6 +1,8 @@
 package com.example.pokemontracker;
 
+import android.content.ContentValues;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -16,6 +18,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Locale;
+
+import com.example.pokemontracker.data.PokemonContract.PokemonEntry;
+import com.example.pokemontracker.data.PokemonRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,17 +42,21 @@ public class MainActivity extends AppCompatActivity {
     private EditText national, name, species, height,
             weight, iHp, iAtk, iDef;
     private RadioGroup genderGroup;
-    private RadioButton male, female, unk;
     private Spinner spLevel;
 
     // Labels
     private TextView labelNational, labelName, labelSpecies, labelGender,
             labelHeight, labelWeight, labelLevel, labelHP, labelAtk, labelDef;
 
-    // Random Extra Features
-    private int saveCount = 0;
-    private TextView saveC;
     boolean darkMode = false;
+    private PokemonRepository repo;
+
+    // Constants for Toast messages
+    private static final String MSG_DUPLICATE = "Pokemon already exists in the database";
+    private static final String MSG_ADD_SUCCESS = "Pokemon added to the database";
+    private static final String MSG_ADD_FAILURE = "Pokemon could not be added to the database";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.linear);
         //setContentView(R.layout.constraint);
         //setContentView(R.layout.table);
+
+        repo = new PokemonRepository(this);
+
 
         bindViews();
         attachUnits();
@@ -72,15 +84,12 @@ public class MainActivity extends AppCompatActivity {
             clearLabelColors();
             String error = validateAll();
             if (error.isEmpty()) {
-                saveCount++;
-                saveC.setText(String.valueOf(saveCount));
-                Toast.makeText(this, "Information stored in the database (simulated)", Toast.LENGTH_SHORT).show();
-                setDefaults();
+                insertPokemonIntoDb();
             } else {
-                Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+
             }
         });
-
     }
 
     private void bindViews() {
@@ -108,11 +117,7 @@ public class MainActivity extends AppCompatActivity {
         labelAtk = findViewById(R.id.attack);
         labelDef = findViewById(R.id.defense);
 
-        // Radio Buttons
-        male = findViewById(R.id.genderMale);
-        female = findViewById(R.id.genderFemale);
-        unk = findViewById(R.id.genderUNK);
-        saveC = findViewById(R.id.saveCount);
+
     }
 
     private void setDefaults() {
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (sb.length() > 0) return sb.toString();
 
-        // National
+        // National #
         int n = parseInt(national.getText().toString());
         if (n < natMin || n > natMax) {
             sb.append("National Number must be between 0 and 1010.\n");
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             markError(labelGender);
         } else {
             String g = ((RadioButton) findViewById(gId)).getText().toString();
-            if(!(g.equals("Male") || g.equals("Female") || g.equals("Unknown"))){
+            if (!(g.equals("Male") || g.equals("Female") || g.equals("Unknown"))) {
                 markError(labelGender);
             }
         }
@@ -249,22 +254,22 @@ public class MainActivity extends AppCompatActivity {
         int hp = parseInt(iHp.getText().toString());
         if (hp < hpMin || hp > hpMax) {
             sb.append("HP must be between 1 and 362.\n");
-            markError(labelHP); }
+            markError(labelHP);
+        }
 
         int atk = parseInt(iAtk.getText().toString());
         if (atk < atkMin || atk > atkMax) {
             sb.append("Attack must be between 0 and 526.\n");
-            markError(labelAtk); }
+            markError(labelAtk);
+        }
 
         int def = parseInt(iDef.getText().toString());
         if (def < defMin || def > defMax) {
             sb.append("Defense must be between 10 and 614.\n");
-            markError(labelDef); }
+            markError(labelDef);
+        }
 
         return sb.toString();
-
-
-
     }
 
     private boolean isBlank(EditText edit) {
@@ -290,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFiltersAndCaps() {
         // Filters for names and species
-        InputFilter filter = (source, start, end, dest, dstart, dend) -> {
+        InputFilter nFilter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
                 char c = source.charAt(i);
                 if (!(Character.isLetter(c) || c == '.' || c == ' ')) return "";
@@ -298,32 +303,31 @@ public class MainActivity extends AppCompatActivity {
             return null;
         };
         name.setFilters(new InputFilter[]{
-                filter,
+                nFilter,
                 new InputFilter.LengthFilter(nameMax)
         });
 
-        InputFilter lfilter = (source, start, end, dest, dstart, dend) -> {
+        InputFilter sFilter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
                 char c = source.charAt(i);
-                if (!(Character.isLetter(c) || c == ' ')) return "";
+                if (!(Character.isLetter(c) || c == ' ')) {
+                    return "";
+                }
             }
             return null;
         };
-        species.setFilters(new InputFilter[]{lfilter});
+        species.setFilters(new InputFilter[]{sFilter});
 
         // Auto-capitalize each word
         TextWatcher watcher = new TextWatcher() {
             boolean cap;
 
-            @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
-            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
-            @Override
             public void afterTextChanged(android.text.Editable s) {
                 if (cap) return;
                 cap = true;
@@ -332,7 +336,6 @@ public class MainActivity extends AppCompatActivity {
                     s.replace(0, s.length(), str);
                 }
                 cap = false;
-
             }
 
         };
@@ -356,8 +359,8 @@ public class MainActivity extends AppCompatActivity {
         attachUnitWatch(weight, "kg");
     }
 
-     // Keeps the EditText value numeric with at most one '.' and
-     // two decimals
+    // Keeps the EditText value numeric with at most one '.' and
+    // two decimals
     private void attachUnitWatch(EditText edit, String unit) {
         edit.addTextChangedListener(new TextWatcher() {
             boolean editing;
@@ -426,24 +429,24 @@ public class MainActivity extends AppCompatActivity {
         header.setTag(R.id.header, 0);
         header.setOnClickListener(v -> cycleLayout());
         Button toggle = findViewById(R.id.toggle);
-        if(toggle != null) toggle.setOnClickListener(v -> cycleLayout());
+        if (toggle != null) toggle.setOnClickListener(v -> cycleLayout());
     }
 
     private void cycleLayout() {
-            TextView header = findViewById(R.id.header);
-            Object tag = header.getTag(R.id.header);
-            int next = (tag instanceof Integer) ? (Integer) tag : 0;
+        TextView header = findViewById(R.id.header);
+        Object tag = header.getTag(R.id.header);
+        int next = (tag instanceof Integer) ? (Integer) tag : 0;
 
-            if(next == 0) {
-                setContentView(R.layout.constraint);
-                next = 1;
-            } else if (next == 1) {
-                setContentView(R.layout.table);
-                next = 2;
-            } else {
-                setContentView(R.layout.linear);
-                next = 0;
-            }
+        if (next == 0) {
+            setContentView(R.layout.constraint);
+            next = 1;
+        } else if (next == 1) {
+            setContentView(R.layout.table);
+            next = 2;
+        } else {
+            setContentView(R.layout.linear);
+            next = 0;
+        }
 
         bindViews();
         attachUnits();
@@ -454,12 +457,51 @@ public class MainActivity extends AppCompatActivity {
 
         TextView newHeader = findViewById(R.id.header);
         newHeader.setTag(R.id.header, next);
+    }
+
+    private String getSelectedGender() {
+        int gId = genderGroup.getCheckedRadioButtonId();
+        if (gId == -1) return "";
+        RadioButton rb = findViewById(gId);
+        return rb == null ? "" : rb.getText().toString().trim();
+    }
+
+    private ContentValues buildPokemonValues() {
+        ContentValues cv = new ContentValues();
+        cv.put(PokemonEntry.COL_NATIONAL, parseInt(national.getText().toString()));
+        cv.put(PokemonEntry.COL_NAME, name.getText().toString().trim());
+        cv.put(PokemonEntry.COL_SPECIES, species.getText().toString().trim());
+        cv.put(PokemonEntry.COL_GENDER, getSelectedGender());
+        cv.put(PokemonEntry.COL_HEIGHT, height.getText().toString().trim());
+        cv.put(PokemonEntry.COL_WEIGHT, weight.getText().toString().trim());
+        cv.put(PokemonEntry.COL_LEVEL, Integer.parseInt(spLevel.getSelectedItem().toString()));
+        cv.put(PokemonEntry.COL_HP, parseInt(iHp.getText().toString()));
+        cv.put(PokemonEntry.COL_ATTACK, parseInt(iAtk.getText().toString()));
+        cv.put(PokemonEntry.COL_DEFENSE, parseInt(iDef.getText().toString()));
+        return cv;
+    }
+
+    private void insertPokemonIntoDb() {
+        ContentValues cv = buildPokemonValues();
+
+        if (repo.isDuplicate(cv)) {
+            Toast.makeText(this, "" + MSG_DUPLICATE, Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        private void switchTheme(){
-            darkMode = !darkMode;
-            ScrollView root = findViewById(R.id.scrollView);
-            int bg = darkMode ? Color.parseColor("#212121") : getColor(R.color.ivory);
-            root.setBackgroundColor(bg);
+        Uri result = repo.insertPokemon(cv);
+        if (result == null) {
+            Toast.makeText(this, "" + MSG_ADD_FAILURE, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "" + MSG_ADD_SUCCESS, Toast.LENGTH_SHORT).show();
+            setDefaults();
         }
+    }
+
+    private void switchTheme() {
+        darkMode = !darkMode;
+        ScrollView root = findViewById(R.id.scrollView);
+        int bg = darkMode ? Color.parseColor("#212121") : getColor(R.color.ivory);
+        root.setBackgroundColor(bg);
+    }
 }
