@@ -13,8 +13,8 @@
         android:theme="@style/Theme.PokemonTracker">
 
         <provider
-            android:authorities="com.example.pokemontracker.provider"
             android:name=".data.PokemonProvider"
+            android:authorities="com.example.pokemontracker"
             android:exported="false"/>
         <activity
             android:name=".MainActivity"

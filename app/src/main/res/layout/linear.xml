@@ -336,6 +336,16 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/darkRed"
                 android:layout_marginStart="16dp"/>
+
+            <Button
+                android:id="@+id/viewDatabase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/viewPokemon"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darkGrey"
+                android:layout_marginStart="16dp" />
+
         </LinearLayout>
 
         <TextView

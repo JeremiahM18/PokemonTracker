@@ -33,7 +33,11 @@
     <string name="reset">Reset</string>
     <string name="save">Save</string>
     <string name="toggle">Toggle</string>
-    <string name="saveCount">Saved entries: 0</string>
+    <string name="saveCount">Saved entries: 0 </string>
 
+    <string name="viewPokemon">View Pokemon List</string>
+    <string name="deleted">Pokemon deleted</string>
+    <string name="delete_failed">Failed to delete Pokemon</string>
+    <string name="pokeList">Pokemon List</string>
 
 </resources>

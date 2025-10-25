@@ -17,18 +17,19 @@ public class PokemonDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL = "CREATE TABLE " + PokemonEntry.TABLE_NAME + " ("
-                + PokemonEntry._ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + PokemonEntry.COL_NATIONAL + "INTEGER NOT NULL, " +
-                PokemonEntry.COL_NAME + "TEXT NOT NULL, " +
-                PokemonEntry.COL_SPECIES + "TEXT NOT NULL, " +
-                PokemonEntry.COL_GENDER + "TEXT NOT NULL, " +
-                PokemonEntry.COL_HEIGHT + "TEXT NOT NULL, " +
-                PokemonEntry.COL_WEIGHT + "TEXT NOT NULL, " +
-                PokemonEntry.COL_LEVEL + "INTEGER NOT NULL, " +
-                PokemonEntry.COL_HP + "INTEGER NOT NULL, " +
-                PokemonEntry.COL_ATTACK + "INTEGER NOT NULL, " +
-                PokemonEntry.COL_DEFENSE + "INTEGER NOT NULL, " +
+        final String SQL =
+                "CREATE TABLE " + PokemonEntry.TABLE_NAME + " (" +
+                PokemonEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PokemonEntry.COL_NATIONAL + " INTEGER NOT NULL, " +
+                PokemonEntry.COL_NAME + " TEXT NOT NULL, " +
+                PokemonEntry.COL_SPECIES + " TEXT NOT NULL, " +
+                PokemonEntry.COL_GENDER + " TEXT NOT NULL, " +
+                PokemonEntry.COL_HEIGHT + " TEXT NOT NULL, " +
+                PokemonEntry.COL_WEIGHT + " TEXT NOT NULL, " +
+                PokemonEntry.COL_LEVEL + " INTEGER NOT NULL, " +
+                PokemonEntry.COL_HP + " INTEGER NOT NULL, " +
+                PokemonEntry.COL_ATTACK + " INTEGER NOT NULL, " +
+                PokemonEntry.COL_DEFENSE + " INTEGER NOT NULL, " +
                 // Prevent exact duplicates
                 "UNIQUE (" +
                 PokemonEntry.COL_NATIONAL + ", " +
@@ -40,7 +41,8 @@ public class PokemonDbHelper extends SQLiteOpenHelper {
                 PokemonEntry.COL_LEVEL + ", " +
                 PokemonEntry.COL_HP + ", " +
                 PokemonEntry.COL_ATTACK + ", " +
-                PokemonEntry.COL_DEFENSE + ") ON CONFLICT IGNORE" +
+                PokemonEntry.COL_DEFENSE +
+                ") ON CONFLICT IGNORE" +
                 ");";
         db.execSQL(SQL);
     }

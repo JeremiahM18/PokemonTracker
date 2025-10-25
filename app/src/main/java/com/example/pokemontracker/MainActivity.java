@@ -1,6 +1,7 @@
 package com.example.pokemontracker;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String MSG_ADD_FAILURE = "Pokemon could not be added to the database";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +77,14 @@ public class MainActivity extends AppCompatActivity {
         // Buttons
         Button reset = findViewById(R.id.reset);
         Button save = findViewById(R.id.save);
+        Button viewDb = findViewById(R.id.viewDatabase);
+        //      Button switchTheme = findViewById(R.id.switchTheme);
 
         reset.setOnClickListener(v -> setDefaults());
+        viewDb.setOnClickListener(v -> {
+            startActivity(new Intent(this, PokemonListActivity.class));
+        });
+
 
         save.setOnClickListener(v -> {
             clearLabelColors();

@@ -8,7 +8,7 @@ public class PokemonContract {
     private PokemonContract(){
     }
 
-    public static final String AUTHORITY = "com.example.pokemon.provider";
+    public static final String AUTHORITY = "com.example.pokemontracker";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
     public static final String PATH_POKEMON = "pokemon";
     public static final class PokemonEntry implements BaseColumns {
