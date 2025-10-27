@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -19,12 +20,18 @@ public class PokemonListActivity extends AppCompatActivity {
     private ListView listView;
     private SimpleCursorAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemon_list);
 
         listView = findViewById(R.id.pokemonListView);
+        Button goBack = findViewById(R.id.backToMain);
+        goBack.setOnClickListener(v -> {
+            finish();
+        });
+
 
         // Define which columns to display
         String[] from = {
@@ -56,7 +63,7 @@ public class PokemonListActivity extends AppCompatActivity {
             Uri deleteUri = ContentUris.withAppendedId(PokemonEntry.CONTENT_URI, id);
             int rows = getContentResolver().delete(deleteUri, null, null);
 
-            if(rows > 0){
+            if (rows > 0) {
                 Toast.makeText(this, "Pokemon deleted", Toast.LENGTH_SHORT).show();
                 refreshList();
             } else {

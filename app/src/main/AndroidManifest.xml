@@ -17,6 +17,8 @@
             android:authorities="com.example.pokemontracker"
             android:exported="false"/>
         <activity
+            android:name=".PokemonListActivity"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

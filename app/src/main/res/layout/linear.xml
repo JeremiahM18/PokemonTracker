@@ -327,7 +327,7 @@
                 android:text="@string/save"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/red"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="8dp"/>
             <Button
                 android:id="@+id/toggle"
                 android:layout_width="wrap_content"
@@ -335,16 +335,19 @@
                 android:text="@string/toggle"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/darkRed"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="8dp"/>
 
             <Button
                 android:id="@+id/viewDatabase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="120dp"
+                android:paddingHorizontal="12dp"
                 android:text="@string/viewPokemon"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/darkGrey"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="8dp" />
 
         </LinearLayout>
 
