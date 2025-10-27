@@ -457,9 +457,9 @@ public class MainActivity extends AppCompatActivity {
         bindViews();
         attachUnits();
         setFiltersAndCaps();
-        setDefaults();
         toggle();
         switchTheme();
+        setDefaults();
 
         TextView newHeader = findViewById(R.id.header);
         newHeader.setTag(R.id.header, next);

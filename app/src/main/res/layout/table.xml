@@ -195,13 +195,13 @@
 
         <TableRow>
             <TextView
-                android:id="@+id/atk"
+                android:id="@+id/attack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/attack"
                 android:textColor="@color/blue"/>
             <EditText
-                android:id="@+id/atkInput"
+                android:id="@+id/attackInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -210,13 +210,13 @@
 
         <TableRow>
             <TextView
-                android:id="@+id/def"
+                android:id="@+id/defense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/defense"
                 android:textColor="@color/blue"/>
             <EditText
-                android:id="@+id/defInput"
+                android:id="@+id/defenseInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
